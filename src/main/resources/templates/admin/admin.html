@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!--========== BOX ICONS ==========-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+
+    <!--========== CSS ==========-->
+    <link rel="stylesheet" href="/css/admin.css">
+
+    <title>Dark Code - Quản lý</title>
+    <!-- icon thanh địa chỉ -->
+    <link rel="shortcut icon" href="/images/detulaptrinh-icon.ico">
+</head>
+
+<body>
+    <!--========== HEADER ==========-->
+    <header class="header">
+        <div class="header__container">
+            <a href="#" class="header__logo" style="text-transform: uppercase;">[[${user.fullname}]]</a>
+        </div>
+    </header>
+
+    <!--========== NAV ==========-->
+    <div class="nav" id="navbar">
+        <nav class="nav__container">
+            <div>
+                <a href="/shop" class="nav__link nav__logo">
+                    <i class='bx bxs-disc nav__icon'></i>
+                    <span class="nav__logo-name">D.Shop</span>
+                </a>
+
+                <div class="nav__list">
+                    <div class="nav__items">
+                        <h3 class="nav__subtitle">Quản lý</h3>
+
+                        <a href="/admin" class="nav__link active">
+                            <i class='bx bx-home nav__icon'></i>
+                            <span class="nav__name">Trang chính</span>
+                        </a>
+
+                        <div class="nav__dropdown">
+                            <a href="#" class="nav__link">
+                                <i class='bx bx-list-ul nav__icon'></i>
+                                <span class="nav__name">Sản phẩm</span>
+                                <i class='bx bx-chevron-down nav__icon nav__dropdown-icon'></i>
+                            </a>
+
+                            <div class="nav__dropdown-collapse">
+                                <div class="nav__dropdown-content">
+                                    <a href="/admin/category" class="nav__dropdown-item">Loại sản phẩm</a>
+                                    <a href="/admin/product" class="nav__dropdown-item">Sản phẩm</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="nav__dropdown">
+                            <a href="#" class="nav__link">
+                                <i class='bx bxs-cart-alt nav__icon'></i>
+                                <span class="nav__name">Đơn hàng</span>
+                                <i class='bx bx-chevron-down nav__icon nav__dropdown-icon'></i>
+                            </a>
+
+                            <div class="nav__dropdown-collapse">
+                                <div class="nav__dropdown-content">
+                                    <a href="/admin/order-check" class="nav__dropdown-item">Đang giao</a>
+                                    <a href="/admin/order-success" class="nav__dropdown-item">Đã giao</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="nav__dropdown">
+                            <a href="#" class="nav__link">
+                                <i class='bx bxs-bar-chart-alt-2 nav__icon'></i>
+                                <span class="nav__name">Thống kê</span>
+                                <i class='bx bx-chevron-down nav__icon nav__dropdown-icon'></i>
+                            </a>
+
+                            <div class="nav__dropdown-collapse">
+                                <div class="nav__dropdown-content">
+                                    <a href="/admin/statistics-revenue" class="nav__dropdown-item">Doanh thu</a>
+                                    <a href="/admin/statistics-order" class="nav__dropdown-item">Đơn hàng</a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="nav__items">
+                        <h3 class="nav__subtitle">Hồ sơ</h3>
+
+                        <a href="/admin/info" class="nav__link">
+                            <i class='bx bxs-info-circle nav__icon'></i>
+                            <span class="nav__name">Thông tin</span>
+                        </a>
+                        <a href="/admin/password" class="nav__link">
+                            <i class='bx bxs-edit-alt nav__icon'></i>
+                            <span class="nav__name">Chỉnh sửa</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <a href="/security/logoff" class="nav__link nav__logout">
+                <i class='bx bx-log-out nav__icon'></i>
+                <span class="nav__name">Log Out</span>
+            </a>
+        </nav>
+    </div>
+
+    <!--========== CONTENTS ==========-->
+    <main>
+        <!-- top -->
+        <div class="top">
+            <div class="box c-1">
+                <div class="row-1">
+                    <div class="left">
+                        <span>
+                            <h2>[[${countCheck}]]</h2> đơn hàng
+                        </span>
+                        <h4>Đang giao</h4>
+                    </div>
+                    <div class="right"><i class='bx bxs-plane-take-off'></i></div>
+                </div>
+                <div class="row-2">
+                    <a href="/admin/order-check">Xem chi tiết <i class='bx bx-arrow-back bx-rotate-180'></i></a>
+                </div>
+            </div>
+            <div class="box c-2">
+                <div class="row-1">
+                    <div class="left">
+                        <span>
+                            <h2>[[${countSuccess}]]</h2> đơn hàng
+                        </span>
+                        <h4>Đã giao</h4>
+                    </div>
+                    <div class="right"><i class='bx bx-shopping-bag'></i></div>
+                </div>
+                <div class="row-2">
+                    <a href="/admin/order-success">Xem chi tiết <i class='bx bx-arrow-back bx-rotate-180'></i></a>
+                </div>
+            </div>
+            <div class="box c-3">
+                <div class="row-1">
+                    <div class="left">
+                        <span>
+                            <h2>[[${#numbers.formatDecimal(doanhThu, 0 ,'COMMA', 1, 'POINT')}]]</h2> vnđ
+                        </span>
+                        <h4>Doanh thu</h4>
+                    </div>
+                    <div class="right"><i class='bx bxs-dollar-circle'></i></div>
+                </div>
+                <div class="row-2">
+                    <a href="/admin/statistics-revenue">Xem chi tiết <i class='bx bx-arrow-back bx-rotate-180'></i></a>
+                </div>
+            </div>
+        </div>
+        <!-- end top -->
+
+        <!-- left -->
+        <div class="top3-product">
+            <div class="title">
+                <h2>top 3 sản phẩm</h2>
+            </div>
+            <div class="product">
+                <!-- info product -->
+                <div class="box-product">
+                    <!-- image -->
+                    <div class="product-image">
+                        <img src="images/bluetooth-true-wireless-xiaomi-earbuds-ba-1-org.jpg" alt="">
+                    </div>
+                    <!-- contact -->
+                    <div class="product-contact">
+                        <h3>Ten San Pham</h3>
+                        <p><h4>Nha cung cap:</h4> Apple</p>
+                        <h3>So luong ban ra: 50 san pham</h3>
+                    </div>
+                </div>
+                <div class="box-product">
+                    <!-- image -->
+                    <div class="product-image">
+                        <img src="images/bluetooth-true-wireless-xiaomi-earbuds-ba-1-org.jpg" alt="">
+                    </div>
+                    <!-- contact -->
+                    <div class="product-contact">
+                        <h3>Ten San Pham</h3>
+                        <p><h4>Nha cung cap:</h4> Apple</p>
+                        <h3>So luong ban ra: 50 san pham</h3>
+                    </div>
+                </div>
+                <div class="box-product">
+                    <!-- image -->
+                    <div class="product-image">
+                        <img src="images/bluetooth-true-wireless-xiaomi-earbuds-ba-1-org.jpg" alt="">
+                    </div>
+                    <!-- contact -->
+                    <div class="product-contact">
+                        <h3>Ten San Pham</h3>
+                        <p><h4>Nha cung cap:</h4> Apple</p>
+                        <h3>So luong ban ra: 50 san pham</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end left -->
+
+        <!-- right -->
+        <div class="top3-customer">
+            <div class="title">
+                <h2>top 3 Khách hàng tiềm năng</h2>
+            </div>
+            <!-- customer -->
+            <div class="customer">
+                <!-- image -->
+                <div class="customer-image">
+                    <i class='bx bxs-user-detail'></i>
+                </div>
+                <!-- info -->
+                <div class="customer-info">
+                    <div class="customer-box">
+                        <i class='bx bxs-user-check' ></i>
+                        <p><h4>Khách hàng:</h4> Huỳnh Phước Dân</p>
+                        <span>Phone: 0352363014</span>
+                        <span>Tổng đơn hàng: 5</span>
+                    </div>
+                    <div class="customer-box">
+                        <i class='bx bxs-user-check' ></i>
+                        <p><h4>Khách hàng:</h4> Huỳnh Phước Dân</p>
+                        <span>Phone: 0352363014</span>
+                        <span>Tổng đơn hàng: 5</span>
+                    </div>
+                    <div class="customer-box">
+                        <i class='bx bxs-user-check' ></i>
+                        <p><h4>Khách hàng:</h4> Huỳnh Phước Dân</p>
+                        <span>Phone: 0352363014</span>
+                        <span>Tổng đơn hàng: 5</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end right -->
+    </main>
+
+    <!--========== MAIN JS ==========-->
+    <script>
+        /*==================== SHOW NAVBAR ====================*/
+        const showMenu = (headerToggle, navbarId) => {
+            const toggleBtn = document.getElementById(headerToggle),
+                nav = document.getElementById(navbarId)
+
+            // Validate that variables exist
+            if (headerToggle && navbarId) {
+                toggleBtn.addEventListener('click', () => {
+                    // We add the show-menu class to the div tag with the nav__menu class
+                    nav.classList.toggle('show-menu')
+                    // change icon
+                    toggleBtn.classList.toggle('bx-x')
+                })
+            }
+        }
+        showMenu('header-toggle', 'navbar')
+
+        /*==================== LINK ACTIVE ====================*/
+        const linkColor = document.querySelectorAll('.nav__link')
+
+        function colorLink() {
+            linkColor.forEach(l => l.classList.remove('active'))
+            this.classList.add('active')
+        }
+
+        linkColor.forEach(l => l.addEventListener('click', colorLink))
+    </script>
+</body>
+
+</html>

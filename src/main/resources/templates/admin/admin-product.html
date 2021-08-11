@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!--========== BOX ICONS ==========-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+    <!-- bootstrap css -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
+    <!-- bootstrap js -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"></script>
+    <!-- AngularJS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <!--========== CSS ==========-->
+    <link rel="stylesheet" href="/css/admin-category.css">
+    <!-- js -->
+    <script src="/js/product.js"></script>
+
+    <title>Dark Code - Quản lý</title>
+    <!-- icon thanh địa chỉ -->
+    <link rel="shortcut icon" href="/images/detulaptrinh-icon.ico">
+</head>
+
+<body ng-app="product" ng-controller="product-ctrl">
+    <!--========== HEADER ==========-->
+    <header class="header">
+        <div class="header__container">
+            <a href="#" class="header__logo">[[${user.fullname}]]</a>
+        </div>
+    </header>
+
+    <!--========== NAV ==========-->
+    <div class="nav" id="navbar">
+        <nav class="nav__container">
+            <div>
+                <a href="/shop" class="nav__link nav__logo">
+                    <i class='bx bxs-disc nav__icon'></i>
+                    <span class="nav__logo-name">D.Shop</span>
+                </a>
+
+                <div class="nav__list">
+                    <div class="nav__items">
+                        <h3 class="nav__subtitle">Quản lý</h3>
+
+                        <a href="/admin" class="nav__link">
+                            <i class='bx bx-home nav__icon'></i>
+                            <span class="nav__name">Trang chính</span>
+                        </a>
+
+                        <div class="nav__dropdown">
+                            <a href="#" class="nav__link active">
+                                <i class='bx bx-list-ul nav__icon'></i>
+                                <span class="nav__name">Sản phẩm</span>
+                                <i class='bx bx-chevron-down nav__icon nav__dropdown-icon'></i>
+                            </a>
+
+                            <div class="nav__dropdown-collapse">
+                                <div class="nav__dropdown-content">
+                                    <a href="/admin/category" class="nav__dropdown-item">Loại sản phẩm</a>
+                                    <a href="/admin/product" class="nav__dropdown-item active">Sản phẩm</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="nav__dropdown">
+                            <a href="#" class="nav__link">
+                                <i class='bx bxs-cart-alt nav__icon'></i>
+                                <span class="nav__name">Đơn hàng</span>
+                                <i class='bx bx-chevron-down nav__icon nav__dropdown-icon'></i>
+                            </a>
+
+                            <div class="nav__dropdown-collapse">
+                                <div class="nav__dropdown-content">
+                                    <a href="/admin/order-check" class="nav__dropdown-item">Đang giao</a>
+                                    <a href="/admin/order-success" class="nav__dropdown-item">Đã giao</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="nav__dropdown">
+                            <a href="#" class="nav__link">
+                                <i class='bx bxs-bar-chart-alt-2 nav__icon'></i>
+                                <span class="nav__name">Thống kê</span>
+                                <i class='bx bx-chevron-down nav__icon nav__dropdown-icon'></i>
+                            </a>
+
+                            <div class="nav__dropdown-collapse">
+                                <div class="nav__dropdown-content">
+                                    <a href="/admin/statistics-revenue" class="nav__dropdown-item">Doanh thu</a>
+                                    <a href="/admin/statistics-order" class="nav__dropdown-item">Đơn hàng</a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="nav__items">
+                        <h3 class="nav__subtitle">Hồ sơ</h3>
+
+                        <a href="/admin/info" class="nav__link">
+                            <i class='bx bxs-info-circle nav__icon'></i>
+                            <span class="nav__name">Thông tin</span>
+                        </a>
+                        <a href="/admin/password" class="nav__link">
+                            <i class='bx bxs-edit-alt nav__icon'></i>
+                            <span class="nav__name">Chỉnh sửa</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <a href="/security/logoff" class="nav__link nav__logout">
+                <i class='bx bx-log-out nav__icon'></i>
+                <span class="nav__name">Log Out</span>
+            </a>
+        </nav>
+    </div>
+
+    <!--========== CONTENTS ==========-->
+    <main>
+        <!-- category -->
+        <div class="category">
+            <!-- form -->
+            <div class="catefory-form">
+                <div class="form-row">
+                    <div class="form-group col-md-4 text-center">
+                        <label for="image"></label>
+                        <img ng-src="{{'/images/khong-day/' + form.image}}" style="max-width: 100%; height: auto;" alt="">
+                    </div>
+                    <div class="form-group col-md-8">
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <label>Name</label>
+                                <input ng-model="form.name" type="text" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label>Image</label>
+                                <input type="file" class="form-control" id="image"
+                                    onchange="angular.element(this).scope().imageChanged(this.files)">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Category</label>
+                                <select ng-model="form.category.id" class="form-control">
+                                    <option ng-repeat="c in cates" ng-value="c.id">{{c.name}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label>Create Date</label>
+                                <input ng-model="form.createDate" type="date" class="form-control">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Price</label>
+                                <input ng-model="form.price" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button ng-click="create()" class="btn btn-primary">Create</button>
+                <button ng-click="update()" class="btn btn-success">Update</button>
+                <button ng-click="delete(form)" class="btn btn-danger">Delete</button>
+                <button ng-click="reset()" class="btn btn-secondary">Reset</button>
+            </div>
+            <!-- table -->
+            <div class="category-table row">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">NAME</th>
+                            <th scope="col">PRICE</th>
+                            <th scope="col">CREATE DATE</th>
+                            <th scope="col">CATEGORY ID</th>
+                            <th>...</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in pager.items">
+                            <th scope="row">{{item.id}}</th>
+                            <td>{{item.name}}</td>
+                            <td>{{item.price | number:2}}</td>
+                            <td>{{item.createDate | date:'dd-MM-yyyy'}}</td>
+                            <td>{{item.category.name}}</td>
+                            <td>
+                                <button ng-click="edit(item)" class="btn btn-success bx bx-edit-alt"></button>
+                                <button ng-click="delete(item)" class="btn btn-danger bx bxs-trash-alt"></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div>
+                    <button ng-click="pager.first()" class="btn btn-danger"><i class='bx bxs-hand-up' ></i></button>
+                    <button ng-click="pager.prev()" class="btn btn-primary"><i class='bx bxs-hand-left' ></i></button>
+                    <button type="button" class="btn btn-success">{{pager.page + 1}} of {{pager.count}}</button>
+                    <button ng-click="pager.next()" class="btn btn-primary"><i class='bx bxs-hand-right' ></i></button>
+                    <button ng-click="pager.last()" class="btn btn-danger"><i class='bx bxs-hand-down' ></i></button>
+                </div>
+            </div>
+        </div>
+        <!-- end category -->
+    </main>
+
+    <!--========== MAIN JS ==========-->
+    <script>
+        /*==================== SHOW NAVBAR ====================*/
+        const showMenu = (headerToggle, navbarId) => {
+            const toggleBtn = document.getElementById(headerToggle),
+                nav = document.getElementById(navbarId)
+
+            // Validate that variables exist
+            if (headerToggle && navbarId) {
+                toggleBtn.addEventListener('click', () => {
+                    // We add the show-menu class to the div tag with the nav__menu class
+                    nav.classList.toggle('show-menu')
+                    // change icon
+                    toggleBtn.classList.toggle('bx-x')
+                })
+            }
+        }
+        showMenu('header-toggle', 'navbar')
+
+        /*==================== LINK ACTIVE ====================*/
+        const linkColor = document.querySelectorAll('.nav__link')
+
+        function colorLink() {
+            linkColor.forEach(l => l.classList.remove('active'))
+            this.classList.add('active')
+        }
+
+        linkColor.forEach(l => l.addEventListener('click', colorLink))
+    </script>
+</body>
+
+</html>

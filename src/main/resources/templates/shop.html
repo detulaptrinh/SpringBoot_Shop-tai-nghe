@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <!-- Boxicon -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+    <!-- Responsive bootstrap -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- bootstrap css -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
+    <!-- bootstrap js -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"></script>
+    <!-- AngularJS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+
+    <title>Dark Code - Just do it</title>
+    <!-- css -->
+    <link rel="stylesheet" href="/css/shop.css">
+    <!-- js -->
+    <script src="/js/home.js"></script>
+    <script src="/js/shopping-cart.js"></script>
+    <!-- icon thanh địa chỉ -->
+    <link rel="shortcut icon" href="/images/detulaptrinh-icon.ico">
+    <!-- animate -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
+</head>
+
+<body ng-app="shopping-cart-app" ng-controller="shopping-cart-ctrl">
+    <!-- header -->
+    <header>
+        <!-- header top -->
+        <div class="header-top">
+            <div class="w-65">
+                <p>"Just do it"</p>
+                <ul>
+                    <th:block th:unless="${#request.remoteUser}">
+                        <li><a href="/security/login/form">Đăng nhập</a></li>
+                        <li><a href="/security/login/form">Đăng ký</a></li>
+                    </th:block>
+                    <li th:if="${#request.remoteUser}" class="account-dropdown">
+                        <div class="account">[[${#request.remoteUser}]]</div>
+                        <div class="account-dropdown-content">
+                            <a th:if="${#request.isUserInRole('CUST')}" href="/customer">Thông tin cá nhân</a>
+                            <a th:if="${#request.isUserInRole('USER') or #request.isUserInRole('ADMIN')}" href="/admin">Quản lý</a>
+                            <a href="/security/logoff"><i class='bx bx-log-out' ></i> Log out</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- end header top -->
+
+        <!-- header body -->
+        <div class="header-body">
+            <div class="w-65 f-box">
+                <!-- left logo -->
+                <div class="header-body-left widget">
+                    <a href="/home">D.Shop</a>
+                </div>
+
+                <!-- search -->
+                <div class="header-body-center widget">
+                    <div class="search">
+                        <input type="text" placeholder="Search">
+                        <i class='bx bx-search-alt'></i>
+                    </div>
+                </div>
+
+                <!-- icon cart -->
+                <div class="header-body-right widget">
+                    <a href="/shopping/cart" data-toggle="tooltip" data-placement="left" title="Giỏ hàng"><i
+                            class='bx bxs-cart-add'></i></a>
+                </div>
+            </div>
+        </div>
+        <!-- end header menu -->
+
+        <!-- header footer -->
+        <div class="header-footer">
+            <div class="header-footer-menu">
+                <ul>
+                    <li class="widget"><a href="/home">Home</a></li>
+                    <li class="widget btn-menu"><a href="/shop">Shop</a></li>
+                    <li class="widget"><a href="">Blog</a></li>
+                    <li class="widget"><a href="">About</a></li>
+                </ul>
+            </div>
+        </div>
+        <!-- end header footer -->
+
+        <!-- info -->
+        <div class="info animate__animated animate__fadeInLeft">
+            <ul>
+                <li data-toggle="tooltip" data-placement="right" title="Facebook"><a
+                        href="https://www.facebook.com/nhatdanka/" target="_blank"><i class='bx bxl-facebook'></i></a>
+                </li>
+                <li data-toggle="tooltip" data-placement="right" title="Instagram"><a
+                        href="https://www.instagram.com/phuocdan0212/" target="_blank"><i class='bx bxl-instagram'></i></a></li>
+                <li data-toggle="tooltip" data-placement="right" title="Telegram"><a href=""><i
+                            class='bx bxl-telegram'></i></a></li>
+                <li data-toggle="tooltip" data-placement="right" title="Phone"><a href=""><i
+                            class='bx bxs-phone-call'></i></a></li>
+                <li data-toggle="tooltip" data-placement="right" title="Die"><a href=""><i class='bx bxs-ghost'></i></a>
+                </li>
+            </ul>
+        </div>
+        <!-- end info -->
+    </header>
+    <!-- end header -->
+
+    <!-- main -->
+    <main class="w-65">
+        <div class="nav-breadcrumb widget">
+            <div class="box">
+                <div class="breadcumb">
+                    <a href="/home">Home</a>
+                    <span><i class='bx bxs-chevrons-right'></i></span>
+                    <a href="/shop">Shop</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- product -->
+        <div class="products-all row">
+            <!-- product menu -->
+            <div class="product-menu col-2">
+                <div class="title container">
+                    <h3 class="title-now widget"><i class='bx bxl-audible'></i> Tay nghe bluetooth</h3>
+                </div>
+                <div class="menu-list widget">
+                    <ul>
+                        <li><a href="/shop">Tất cả</a></li>
+                        <li th:each="c: ${cates}"><a th:href="@{|/shop?cid=${c.id}|}">[[${c.name}]]</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- product list -->
+            <div class="product-list col-10">
+                <div class="products">
+                    <div th:each="p:${items}" class="product-box widget">
+                        <div class="image-box">
+                            <img th:src="@{|/images/khong-day/${p.image}|}" alt="">
+                            <div class="box-cart flat">
+                                <ul>
+                                    <li><a href="" th:attr="ng-click=@{|cart.add(${p.id})|}"><i class='bx bxs-cart-add'></i></a></li>
+                                    <li><a href=""><i class='bx bxs-heart'></i></a></li>
+                                </ul>
+                                <a class="chi-tiet" th:href="@{|/shop/detail/${p.id}|}">Chi tiết</a>
+                            </div>
+                        </div>
+                        <div class="text-box">
+                            <h4 th:text="${p.name}">Next-gen design</h4>
+                            <span>[[${#numbers.formatDecimal(p.price, 0 ,'COMMA', 1, 'POINT')}]] đ</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end product -->
+    </main>
+    <!-- end main -->
+
+    <!-- footer -->
+    <footer>
+        <div class="t-header container">
+            <div class="row col-12">
+                <div class="col-4 left widget">
+                    <h1>PHUOCDAN</h1>
+                    <p class="font-weight-light">The customer is at the heart of our unique business model, which
+                        includes design.</p>
+                </div>
+                <div class="col-2 widget">
+                    <h5>SHOPPING</h5>
+                    <p>I Phone</p>
+                    <p>Samsung</p>
+                    <p>Oppo</p>
+                    <p>Huawei</p>
+                    <p>Xiaomi</p>
+
+                </div>
+                <div class="col-2 widget">
+                    <h5>CONTACT</h5>
+                    <p>Contact Us</p>
+                    <p>0352363014</p>
+                    <p>danhpps13462@fpt.edu.vn</p>
+                </div>
+                <div class="col-4 right widget">
+                    <h5>NEWLETTER</h5>
+                    <p>Be the first to know about new arrivals, look books, sales & promos!</p>
+                </div>
+            </div>
+            <hr>
+        </div>
+        <div class="t-footer widget">
+            <p>@ 2021 Made with ♥ danhpps13462@fpt.edu.vn</p>
+        </div>
+    </footer>
+    <!-- end footer -->
+
+    <!-- SCROLL TOP -->
+    <a href="#" class="scrolltop" id="scroll-top">
+        <i class='bx bx-up-arrow-alt scrolltop__icon'></i>
+    </a>
+</body>
+
+<!-- SCROLL REVEAL -->
+<script src="https://unpkg.com/scrollreveal"></script>
+<script>
+    const sr = ScrollReveal({
+        distance: '30px',
+        duration: 1800,
+        reset: true,
+    });
+
+    sr.reveal('.widget', {
+        origin: 'top',
+        interval: 150,
+    })
+
+    sr.reveal(`.slide-right`, {
+        origin: 'top'
+    })
+</script>
+
+</html>
